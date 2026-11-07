@@ -364,8 +364,8 @@ export function DashboardWorkspace({
                       onClick={() => onOpenPatient(p.id)}
                       className="group block w-full rounded-lg px-1.5 py-1.5 -mx-1.5 text-left transition-colors hover:bg-hover"
                     >
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex min-w-0 items-center gap-2">
+                      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5">
+                        <div className="flex min-w-0 max-w-full items-center gap-2">
                           <span className="truncate text-[14px] font-semibold text-ink group-hover:text-brand">
                             {p.name}
                           </span>
