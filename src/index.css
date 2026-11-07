@@ -1,0 +1,1311 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Pure White Principal Canvas */
+  --color-canvas: #ffffff;
+  --color-track: #f1f4f8;
+  --color-hover: #f4f7fa;
+
+  /* High-Contrast Clinical Ink */
+  --color-ink: #111827;
+  --color-ink-secondary: #334155;
+  --color-muted: #526071;
+
+  /* Disciplined Structural Lines */
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+  --color-control-border: #94a3b8;
+
+  /* Primary Clinical Identity — Deep Teal */
+  --color-brand: #0b6168;
+  --color-brand-hover: #084c52;
+  --color-brand-tonal: #def1f2;
+  --color-brand-ink: #063d42;
+
+  /* Expressive Interactive Selection — Google M3 Blue */
+  --color-select: #0b57d0;
+  --color-select-tonal: #d3e3fd;
+  --color-select-ink: #041e49;
+
+  /* Semantic Clinical Status — Act Now (Coral / Crimson) */
+  --color-act: #b3261e;
+  --color-act-fill: #d9382c;
+  --color-act-bg: #fceae8;
+  --color-act-line: #f2b8b5;
+
+  /* Semantic Clinical Status — Watch (Warm Amber) */
+  --color-watch: #854d0e;
+  --color-watch-fill: #d97706;
+  --color-watch-bg: #fef3c7;
+  --color-watch-line: #fcd34d;
+
+  /* Semantic Clinical Status — On Track (Clinical Teal-Green) */
+  --color-ok: #0f6b52;
+  --color-ok-fill: #158466;
+  --color-ok-bg: #e1f5ee;
+  --color-ok-line: #9fe0c8;
+
+  /* Metric identity colours (category, not clinical severity) */
+  --color-pain-bg: #fbe5ec;
+  --color-pain-fill: #f5c9d7;
+  --color-pain-ink: #6b1f3d;
+  --color-walk-bg: #d8f2ef;
+  --color-walk-fill: #ace3dc;
+  --color-walk-ink: #0b4f4a;
+  --color-mood-bg: #ece6fb;
+  --color-mood-fill: #d6caf6;
+  --color-mood-ink: #42267a;
+
+  /* Distinct Categorical Accent — Mood */
+  --color-mood-low: #6d3b9e;
+  --color-mood-low-bg: #f3e8ff;
+  --color-mood-low-line: #d8b4fe;
+}
+
+:root {
+  color-scheme: light;
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --page-gutter: clamp(1.25rem, 2.5vw, 2.5rem);
+  --max-shell: 1640px;
+}
+
+html {
+  font-size: 16px;
+  background-color: #ffffff;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root,
+.app-shell {
+  min-height: 100dvh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+select,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+dl,
+dd,
+ol,
+ul {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* Modern typography wrapping rules (selective per performance guidance) */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  color: var(--color-ink);
+}
+
+p,
+.clinical-prose {
+  text-wrap: pretty;
+}
+
+h1 {
+  font-size: 1.75rem; /* 28px */
+  font-weight: 640;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 1.0625rem; /* 17px */
+  font-weight: 620;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.tabular,
+table td,
+table th,
+strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Accessible Focus & Visually Hidden Utilities */
+:focus-visible {
+  outline: 2.5px solid var(--color-select);
+  outline-offset: 2px;
+}
+
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+.skip-link {
+  position: fixed;
+  inset-inline-start: 1rem;
+  inset-block-start: 0.5rem;
+  z-index: 100;
+  background: #ffffff;
+  color: var(--color-brand);
+  border: 2px solid var(--color-brand);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Global Application Chrome — Pure White, Compact, Calm */
+.global-chrome {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 30;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.demo-notice {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--color-line);
+  min-height: 1.375rem; /* 22px */
+  padding: 0.125rem var(--page-gutter);
+}
+
+.demo-notice-inner {
+  max-width: var(--max-shell);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.75rem; /* 12px */
+  color: var(--color-muted);
+}
+
+.masthead {
+  max-width: var(--max-shell);
+  margin-inline: auto;
+  min-height: 2.875rem; /* 46px */
+  padding: 0.25rem var(--page-gutter);
+  /* Equal side columns keep the title on the true centre of the header */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.masthead-title {
+  display: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink-secondary);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .masthead-title {
+    display: block;
+  }
+}
+
+.workspace {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-shell);
+  margin-inline: auto;
+  padding: 1.125rem var(--page-gutter) 2rem;
+  background-color: #ffffff;
+}
+
+@media (min-width: 1024px) {
+  .workspace[data-overview="true"] {
+    display: flex;
+    flex-direction: column;
+    padding-block: 0.5rem 0.5rem;
+  }
+
+  .app-shell[data-overview="true"] .app-footer {
+    display: none;
+  }
+}
+
+.app-footer {
+  width: 100%;
+  background-color: #ffffff;
+  border-top: 1px solid var(--color-line);
+}
+
+.app-footer-inner {
+  max-width: var(--max-shell);
+  margin-inline: auto;
+  padding: 0.75rem var(--page-gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+/* Single-Screen 2×2 Clinical Command-Centre Grid (Flat #FFFFFF, Fine Hairlines) */
+.command-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 1px solid var(--color-line-strong);
+  background-color: #ffffff;
+}
+
+.command-region {
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  padding-block: 0.75rem;
+  background-color: #ffffff;
+}
+
+.command-region:not(:last-child) {
+  border-bottom: 1px solid var(--color-line);
+}
+
+@media (min-width: 1024px) {
+  .command-grid {
+    flex: 1;
+    grid-template-columns: minmax(0, 1.14fr) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  @media (min-height: 840px) {
+    .command-grid {
+      grid-template-rows: minmax(0, 1.08fr) minmax(0, 1fr);
+    }
+  }
+
+  .command-region {
+    padding-block: 0.5rem;
+  }
+
+  .command-region:nth-child(odd) {
+    padding-inline-end: clamp(1rem, 1.8vw, 1.75rem);
+  }
+
+  .command-region:nth-child(even) {
+    padding-inline-start: clamp(1rem, 1.8vw, 1.75rem);
+    border-inline-start: 1px solid var(--color-line);
+  }
+
+  .command-region:nth-child(1),
+  .command-region:nth-child(2) {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .command-region:nth-child(3),
+  .command-region:nth-child(4) {
+    border-bottom: 0;
+    padding-block-end: 0.25rem;
+  }
+}
+
+/* Optical vertical centering for dense clinical badges & pills */
+.clinical-pill-label {
+  text-box: trim-both cap alphabetic;
+}
+
+/* Material 3 Expressive Connected Geometry */
+.m3-connected-bar {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  border-radius: 999px;
+  overflow: clip;
+}
+
+.m3-connected-segment {
+  border-radius: 3px;
+  transition: filter 140ms ease, transform 140ms ease;
+}
+
+.m3-connected-segment:first-child {
+  border-start-start-radius: 999px;
+  border-end-start-radius: 999px;
+}
+
+.m3-connected-segment:last-child {
+  border-start-end-radius: 999px;
+  border-end-end-radius: 999px;
+}
+
+.m3-segmented-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background-color: var(--color-track);
+}
+
+.m3-segmented-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3125rem 0.8125rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--color-ink-secondary);
+  background: transparent;
+  border: 0;
+  white-space: nowrap;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.m3-segmented-btn:hover:not([aria-pressed="true"]):not([aria-selected="true"]) {
+  color: var(--color-ink);
+  background-color: rgba(15, 23, 42, 0.05);
+}
+
+.m3-segmented-btn[aria-pressed="true"],
+.m3-segmented-btn[aria-selected="true"] {
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Expressive Paired Pill + Badge (M3 Shape Pairing) */
+.m3-paired {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.m3-paired-main {
+  border-radius: 999px 8px 8px 999px;
+}
+
+.m3-paired-cap {
+  border-radius: 8px 999px 999px 8px;
+}
+
+/* Enterprise Clinical Tables — Flat White, Crisp Dividers, High Legibility */
+.clinical-table-wrap {
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--color-line-strong);
+  border-bottom: 1px solid var(--color-line);
+  background-color: #ffffff;
+}
+
+.clinical-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: start;
+  font-size: 0.84375rem; /* 13.5px */
+  background-color: #ffffff;
+}
+
+.clinical-table thead th {
+  padding: 0.5625rem 0.75rem;
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  color: var(--color-ink-secondary);
+  border-bottom: 1px solid var(--color-line-strong);
+  background-color: #ffffff;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.clinical-table tbody td {
+  padding: 0.6875rem 0.75rem;
+  border-bottom: 1px solid var(--color-line);
+  vertical-align: top;
+  color: var(--color-ink);
+}
+
+.clinical-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.clinical-table tbody tr.interactive-row {
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.clinical-table tbody tr.interactive-row:hover,
+.clinical-table tbody tr.interactive-row:focus-within {
+  background-color: var(--color-hover);
+}
+
+.clinical-table th:first-child,
+.clinical-table td:first-child {
+  padding-inline-start: 0.25rem;
+}
+
+.clinical-table th:last-child,
+.clinical-table td:last-child {
+  padding-inline-end: 0.25rem;
+}
+
+/* Native Modal Dialog */
+dialog.tether-dialog {
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 1.25rem;
+  background-color: #ffffff;
+  color: var(--color-ink);
+  width: min(92vw, 30rem);
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 20px 44px -12px rgba(15, 23, 42, 0.22);
+}
+
+dialog.tether-dialog.dialog-wide {
+  width: min(92vw, 36rem);
+}
+
+dialog.tether-dialog::backdrop {
+  background-color: rgba(15, 23, 42, 0.36);
+  backdrop-filter: blur(2px);
+}
+
+/* Restrained Clinical Feedback Animations */
+@keyframes tether-enter {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes tether-row-flash {
+  0%,
+  55% {
+    background-color: var(--color-select-tonal);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.anim-enter {
+  animation: tether-enter 150ms ease-out both;
+}
+
+.anim-flash,
+.anim-flash > td {
+  animation: tether-row-flash 2.6s ease-out both;
+}
+
+.scroll-panel {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .anim-enter,
+  .anim-flash,
+  .anim-flash > td {
+    animation: none;
+  }
+
+  .m3-connected-segment,
+  .m3-segmented-btn,
+  .clinical-table tbody tr.interactive-row,
+  button,
+  a {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Patient workspace (profile only; every class is prefixed `pw-`)     */
+/* ------------------------------------------------------------------ */
+
+.pw-root {
+  --pw-top: 80px; /* updated at runtime to the sticky global chrome height */
+  --pw-toolbar-h: 58px;
+}
+
+.pw-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .pw-grid {
+    grid-template-columns: minmax(220px, 272px) minmax(0, 1fr);
+    gap: 0;
+  }
+  .pw-region-history {
+    position: sticky;
+    /* clears the condensed identity strip, which is showing whenever this column is stuck */
+    top: calc(var(--pw-top) + 56px);
+    max-height: calc(100dvh - var(--pw-top) - 56px - var(--pw-toolbar-h) - 20px);
+    padding-inline-end: 1.25rem;
+  }
+  .pw-region-review {
+    border-inline-start: 1px solid var(--color-line);
+    padding-inline-start: 1.5rem;
+  }
+  .pw-region-context {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--color-line);
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .pw-grid {
+    grid-template-columns: minmax(244px, 21%) minmax(0, 1fr) minmax(300px, 28%);
+  }
+  .pw-region-review {
+    padding-inline-end: 1.5rem;
+  }
+  .pw-region-context {
+    grid-column: auto;
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+    border-inline-start: 1px solid var(--color-line);
+    padding-inline-start: 1.5rem;
+  }
+}
+
+/* Region heading: compact eyebrow-sized title + metadata */
+.pw-region-title {
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 640;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+}
+
+.pw-eyebrow {
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* History list: a connected timeline rail behind shape markers */
+.pw-timeline {
+  position: relative;
+}
+
+.pw-timeline::before {
+  content: "";
+  position: absolute;
+  inset-block: 14px;
+  inset-inline-start: 17px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-line);
+}
+
+.pw-history-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  column-gap: 0.625rem;
+  width: 100%;
+  text-align: start;
+  padding: 0.5rem 0.625rem 0.5625rem 0.4375rem;
+  border-radius: 14px;
+  transition: background-color 140ms ease, border-radius 200ms ease;
+}
+
+.pw-history-item:hover {
+  background-color: var(--color-hover);
+}
+
+.pw-history-item[aria-current="true"] {
+  background-color: var(--color-select-tonal);
+  border-radius: 8px 20px 20px 8px;
+}
+
+.pw-history-item[aria-current="true"]::before {
+  content: "";
+  position: absolute;
+  inset-block: 8px;
+  inset-inline-start: -6px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--color-select);
+}
+
+/* Shape-coded state markers (shape carries meaning, not only colour) */
+.pw-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+}
+
+.pw-marker > span {
+  display: block;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+
+.pw-shape-ok {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--color-ok-fill);
+}
+
+.pw-shape-watch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--color-watch-fill);
+}
+
+.pw-shape-act {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  background: var(--color-act-fill);
+}
+
+.pw-shape-missed {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  border: 2px dashed var(--color-control-border);
+  background: #ffffff;
+}
+
+/* Expressive status capsule paired with a flag-count cap */
+.pw-status {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 2px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.pw-status > .pw-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.3125rem 0.8125rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+}
+
+.pw-status > .pw-seg-start {
+  border-radius: 999px 6px 6px 999px;
+}
+
+.pw-status > .pw-seg-end {
+  border-radius: 6px 999px 999px 6px;
+  padding-inline: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pw-status > .pw-seg-solo {
+  border-radius: 999px;
+}
+
+.pw-status-sm > .pw-seg {
+  padding: 0.1875rem 0.625rem;
+  font-size: 0.75rem;
+}
+
+.pw-status-cap {
+  gap: 0.25rem !important;
+  transition: filter 140ms ease, border-radius 200ms ease;
+}
+
+.pw-status-cap:hover {
+  filter: brightness(0.96);
+}
+
+.pw-status-cap[aria-expanded="true"] {
+  filter: brightness(0.93);
+}
+
+/* Disclosure listing the flags behind the status (opens on request only) */
+.pw-popover {
+  display: block;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+  width: min(380px, 86vw);
+  padding: 0.75rem;
+  white-space: normal;
+  text-align: start;
+}
+
+/* Measurement tiles */
+.pw-measure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+  padding: 0.75rem 0.875rem 0.625rem;
+  border-radius: 16px;
+  border: 1px solid var(--color-line);
+  background: #ffffff;
+  text-align: start;
+  transition: border-color 140ms ease, background-color 140ms ease, border-radius 220ms ease;
+}
+
+.pw-measure:hover {
+  border-color: var(--color-line-strong);
+}
+
+.pw-measure[data-flagged="true"] {
+  border-color: var(--color-watch-line);
+  background: color-mix(in srgb, var(--color-watch-bg) 45%, #ffffff);
+}
+
+.pw-measure[aria-expanded="true"] {
+  border-color: var(--color-select);
+  border-radius: 16px 16px 6px 6px;
+  box-shadow: inset 0 0 0 1px var(--color-select);
+}
+
+/* Delta capsule */
+.pw-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Thin section separators inside regions */
+.pw-section {
+  border-top: 1px solid var(--color-line);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+/* Disclosure rows (medical context groups) */
+.pw-disclosure {
+  border-top: 1px solid var(--color-line);
+}
+
+.pw-disclosure:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.pw-disclosure-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5625rem 0.125rem;
+  text-align: start;
+  border-radius: 8px;
+}
+
+.pw-disclosure-btn:hover {
+  background-color: var(--color-hover);
+}
+
+/* Condensed identity strip shown once the full header scrolls away */
+.pw-condensed {
+  position: fixed;
+  inset-inline: 0;
+  top: var(--pw-top);
+  z-index: 25;
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-line);
+  transform: translateY(-6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 160ms ease;
+}
+
+.pw-condensed[data-visible="true"] {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Small overflow menu */
+.pw-menu {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  min-width: 240px;
+  padding: 0.375rem;
+  border-radius: 16px;
+  border: 1px solid var(--color-line-strong);
+  background: #ffffff;
+  box-shadow: 0 12px 32px -12px rgba(15, 23, 42, 0.28);
+}
+
+.pw-menu-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--color-ink);
+  text-align: start;
+}
+
+.pw-menu-item:hover,
+.pw-menu-item:focus-visible {
+  background-color: var(--color-hover);
+}
+
+.pw-chart-point {
+  cursor: pointer;
+}
+
+.pw-chart-point:focus-visible {
+  outline: none;
+}
+
+.pw-menu-up {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+/* Patient-context toolbar, pinned to the bottom of the viewport while the record is in view */
+.pw-toolbar {
+  position: sticky;
+  bottom: 0;
+  z-index: 22;
+  margin-top: 1.5rem;
+  margin-inline: calc(-1 * var(--page-gutter));
+  padding-inline: var(--page-gutter);
+  min-height: var(--pw-toolbar-h);
+  background: #ffffff;
+  border-top: 1px solid var(--color-line);
+}
+
+.pw-toolbar-nav {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pw-toolbar-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.pw-nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0 0.875rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 560;
+  color: var(--color-ink-secondary);
+  white-space: nowrap;
+  transition: background-color 140ms ease, color 140ms ease, border-radius 220ms ease;
+}
+
+.pw-nav-item:hover {
+  background-color: var(--color-hover);
+  color: var(--color-ink);
+}
+
+/* Active: tonal shape that squares slightly, so selection reads by shape as well as colour */
+.pw-nav-item[aria-current="true"] {
+  background-color: var(--color-brand-tonal);
+  color: var(--color-brand-ink);
+  font-weight: 650;
+  border-radius: 12px;
+}
+
+.pw-nav-icon {
+  display: inline-grid;
+  place-items: center;
+}
+
+/* Phones: Material navigation-bar layout, icon over label, active pill behind the icon */
+@media (max-width: 767px) {
+  .pw-toolbar-nav ul > li {
+    flex: 1 1 0;
+  }
+  .pw-nav-item,
+  .pw-nav-item[aria-current="true"] {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.125rem;
+    width: 100%;
+    height: 3.25rem;
+    padding: 0 0.125rem;
+    font-size: 0.75rem;
+    background: transparent;
+    border-radius: 12px;
+  }
+  .pw-nav-icon {
+    width: 3rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    transition: background-color 160ms ease, width 200ms ease;
+  }
+  .pw-nav-item[aria-current="true"] .pw-nav-icon {
+    background-color: var(--color-brand-tonal);
+  }
+}
+
+/* Very narrow phones: the top of the record is a scroll away, so Summary yields its slot */
+@media (max-width: 419px) {
+  .pw-nav-summary {
+    display: none;
+  }
+}
+
+/* Section anchors clear the sticky chrome and condensed identity bar */
+.pw-anchor {
+  scroll-margin-top: calc(var(--pw-top) + 64px);
+  scroll-margin-bottom: calc(var(--pw-toolbar-h) + 16px);
+}
+
+.pw-anchor:focus {
+  outline: none;
+}
+
+@keyframes pw-flash {
+  0% { box-shadow: 0 0 0 3px var(--color-select-tonal); background-color: color-mix(in srgb, var(--color-select-tonal) 45%, transparent); }
+  100% { box-shadow: 0 0 0 3px transparent; background-color: transparent; }
+}
+
+.pw-flash {
+  border-radius: 14px;
+  animation: pw-flash 1.4s ease-out both;
+}
+
+/* ---------- Desktop: the record fills the viewport; regions scroll internally ---------- */
+@media (min-width: 1280px) and (min-height: 680px) {
+  .workspace:has(.pw-root) {
+    padding-block: 0.625rem 0;
+  }
+  .pw-root {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - var(--pw-top) - 0.625rem);
+  }
+  .pw-root > .pw-grid {
+    flex: 1;
+    min-height: 0;
+    margin-top: 0.75rem;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .pw-region-history {
+    position: static;
+    max-height: none;
+    height: 100%;
+  }
+  .pw-region-review,
+  .pw-region-context {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+    padding-bottom: 0.75rem;
+  }
+  .pw-region-context {
+    display: flex;
+    flex-direction: column;
+  }
+  .pw-anchor {
+    scroll-margin-top: 0.5rem;
+  }
+  .pw-root > .pw-toolbar {
+    position: static;
+    margin-top: 0;
+    flex: none;
+  }
+  /* The video stage takes whatever height the column has left */
+  .pw-video-section {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  /* Fills the column's remaining height, between 132px and the 300px cap */
+  .pw-video-stage {
+    flex: 1 1 auto;
+    aspect-ratio: auto;
+    min-height: 132px;
+  }
+  .pw-region-context .pw-section {
+    margin-top: 0.625rem;
+    padding-top: 0.625rem;
+  }
+}
+
+/* ---------- Medical context: shows two collapsed sections at a time, scrolls for the rest ---------- */
+.pw-med-list {
+  --pw-med-row: 3.125rem;
+  max-height: calc(var(--pw-med-row) * 2 + 1px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-gutter: stable;
+  border-block: 1px solid var(--color-line);
+}
+
+.pw-med-list .pw-disclosure {
+  border-top: 0;
+}
+
+.pw-med-list .pw-disclosure + .pw-disclosure {
+  border-top: 1px solid var(--color-line);
+}
+
+.pw-med-list .pw-disclosure:last-child {
+  border-bottom: 0;
+}
+
+.pw-med-list .pw-disclosure-btn {
+  min-height: var(--pw-med-row);
+  padding-block: 0.375rem;
+}
+
+.pw-disclosure-btn[aria-expanded="true"] {
+  background-color: var(--color-track);
+  border-radius: 10px 10px 4px 4px;
+}
+
+/* ---------- Video follow-up ---------- */
+.pw-video-stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  min-height: 150px;
+  max-height: 300px;
+  border-radius: 24px;
+  background: #1b1c1e;
+}
+
+.pw-call-btn {
+  display: grid;
+  place-items: center;
+  height: 2rem;
+  width: 2.5rem;
+  border-radius: 999px;
+  background: #3c4043;
+  color: #ffffff;
+  transition: background-color 140ms ease, border-radius 200ms ease;
+}
+
+.pw-call-btn:hover:not(:disabled) {
+  background: #4a4e52;
+}
+
+.pw-call-btn[aria-pressed="true"] {
+  background: #f9dedc;
+  color: #8c1d18;
+  border-radius: 12px;
+}
+
+.pw-call-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pw-call-end {
+  width: 3.25rem;
+  background: #c5221f;
+}
+
+.pw-call-end:hover:not(:disabled) {
+  background: #a50e0e;
+}
+
+.pw-call-btn:focus-visible {
+  outline: 2.5px solid #a8c7fa;
+  outline-offset: 2px;
+}
+
+/* Device selectors: compact outlined pills */
+.pw-device {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 0.375rem;
+  height: 2rem;
+  padding-inline: 0.625rem 0.5rem;
+  border: 1px solid var(--color-control-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--color-ink-secondary);
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.pw-device:hover {
+  background: var(--color-hover);
+}
+
+.pw-device:focus-within {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-brand) 22%, transparent);
+}
+
+.pw-device select {
+  min-width: 0;
+  flex: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 550;
+  color: var(--color-ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-inline-end: 0.875rem;
+}
+
+.pw-device select:focus {
+  outline: none;
+}
+
+/* ---------- Metric panels: rounded, borderless, one pastel fill each ---------- */
+.pw-metric {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0.875rem 1rem 0.75rem;
+  border: 0;
+  border-radius: 24px;
+  text-align: start;
+  transition: filter 140ms ease;
+}
+
+.pw-metric:hover {
+  filter: brightness(0.985);
+}
+
+.pw-metric-pain { background: var(--color-pain-bg); color: var(--color-pain-ink); }
+.pw-metric-walk { background: var(--color-walk-bg); color: var(--color-walk-ink); }
+.pw-metric-mood { background: var(--color-mood-bg); color: var(--color-mood-ink); }
+
+/* Rounded category marker */
+.pw-metric-icon {
+  display: grid;
+  place-items: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Dashboard: section identity markers and date chips ---------- */
+.dash-marker {
+  display: inline-block;
+  width: 0.375rem;
+  height: 1rem;
+  border-radius: 999px;
+}
+.dash-marker-attention { background: var(--color-act-fill); }
+.dash-marker-readiness { background: var(--color-brand); }
+.dash-marker-checkins { background: var(--color-select); }
+.dash-marker-waitlist { background: var(--color-ok-fill); }
+
+.dash-chip {
+  border-radius: 999px;
+  padding: 0.1875rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 550;
+  color: var(--color-ink-secondary);
+  transition: background-color 140ms ease, border-radius 220ms ease, color 140ms ease;
+}
+.dash-chip:hover {
+  background: var(--color-hover);
+  color: var(--color-ink);
+}
+/* Selected chip squares off slightly: selection reads by shape as well as colour */
+.dash-chip-on,
+.dash-chip-on:hover {
+  background: var(--color-select-tonal);
+  color: var(--color-select-ink);
+  font-weight: 650;
+  border-radius: 10px;
+}
